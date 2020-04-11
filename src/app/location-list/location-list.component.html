@@ -1,1 +1,10 @@
-<p>location-list works!</p>
+<ul class="list-group list-group-flush">
+  <li
+    *ngFor="let location of locations; index as i"
+    class="list-group-item {{ i % 2 === 1 ? 'list-group-item-dark' : '' }}"
+  >
+    <div>Position: {{ i }}</div>
+    <div>Latitude: {{ location.latitude }}</div>
+    <div>Longitude: {{ location.longitude }}</div>
+  </li>
+</ul>
