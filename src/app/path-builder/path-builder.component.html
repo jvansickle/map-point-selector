@@ -4,7 +4,9 @@
   </div>
   <div class="row">
     <div class="col-md-8">
-      <app-location-picker></app-location-picker>
+      <app-location-picker
+        (newCoordinatesAvailable)="onNewCoordinatesAvailable($event)"
+      ></app-location-picker>
     </div>
     <div class="col">
       <app-location-list [locations]="locations"></app-location-list>

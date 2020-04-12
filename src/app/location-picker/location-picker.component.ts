@@ -1,15 +1,57 @@
-import { Component, OnInit } from '@angular/core';
+import {
+  Component,
+  OnInit,
+  ElementRef,
+  ViewChild,
+  AfterViewInit,
+  OnDestroy,
+  Output,
+  EventEmitter,
+} from '@angular/core';
 
 @Component({
   selector: 'app-location-picker',
   templateUrl: './location-picker.component.html',
-  styleUrls: ['./location-picker.component.scss']
+  styleUrls: ['./location-picker.component.scss'],
 })
-export class LocationPickerComponent implements OnInit {
+export class LocationPickerComponent
+  implements OnInit, AfterViewInit, OnDestroy {
+  @ViewChild('mapContainer', { static: false }) gmap: ElementRef;
+  @Output() newCoordinatesAvailable = new EventEmitter<{
+    latitude: number;
+    longitude: number;
+  }>();
 
-  constructor() { }
+  map: google.maps.Map;
+  coordinates = new google.maps.LatLng(40.441737, -80.012127);
 
-  ngOnInit(): void {
+  mapOptions: google.maps.MapOptions = {
+    center: this.coordinates,
+    zoom: 15,
+    mapTypeControl: false,
+    streetViewControl: false,
+    fullscreenControl: false,
+  };
+
+  constructor() {}
+
+  ngOnInit(): void {}
+
+  ngAfterViewInit() {
+    this.initializeMap();
   }
 
+  ngOnDestroy() {}
+
+  private onMapClicked(event: google.maps.MouseEvent) {
+    this.newCoordinatesAvailable.emit({
+      latitude: event.latLng.lat(),
+      longitude: event.latLng.lng(),
+    });
+  }
+
+  private initializeMap() {
+    this.map = new google.maps.Map(this.gmap.nativeElement, this.mapOptions);
+    this.map.addListener('click', (e) => this.onMapClicked(e));
+  }
 }

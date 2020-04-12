@@ -9,22 +9,14 @@ import { Location } from '../models/location';
 export class PathBuilderComponent implements OnInit {
   locations: Location[] = [];
 
-  constructor() {
-    this.locations.push({ latitude: 100, longitude: 200 });
-    this.locations.push({ latitude: 100, longitude: 200 });
-    this.locations.push({ latitude: 100, longitude: 200 });
-    this.locations.push({ latitude: 100, longitude: 200 });
-    this.locations.push({ latitude: 100, longitude: 200 });
-    this.locations.push({ latitude: 100, longitude: 200 });
-    this.locations.push({ latitude: 100, longitude: 200 });
-    this.locations.push({ latitude: 100, longitude: 200 });
-    this.locations.push({ latitude: 100, longitude: 200 });
-    this.locations.push({ latitude: 100, longitude: 200 });
-    this.locations.push({ latitude: 100, longitude: 200 });
-    this.locations.push({ latitude: 100, longitude: 200 });
-    this.locations.push({ latitude: 100, longitude: 200 });
-    this.locations.push({ latitude: 100, longitude: 200 });
-  }
+  constructor() {}
 
   ngOnInit(): void {}
+
+  onNewCoordinatesAvailable(latLng: { latitude: number; longitude: number }) {
+    this.locations.push({
+      latitude: latLng.latitude,
+      longitude: latLng.longitude,
+    });
+  }
 }
