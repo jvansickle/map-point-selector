@@ -44,6 +44,13 @@ export class LocationPickerComponent
   ngOnDestroy() {}
 
   private onMapClicked(event: google.maps.MouseEvent) {
+    // Add a marker to the map
+    const marker = new google.maps.Marker({
+      position: event.latLng,
+    });
+    marker.setMap(this.map);
+
+    // Tell parent about the click coordinates
     this.newCoordinatesAvailable.emit({
       latitude: event.latLng.lat(),
       longitude: event.latLng.lng(),
